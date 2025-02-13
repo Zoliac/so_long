@@ -6,65 +6,123 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:27:24 by lpatin            #+#    #+#             */
-/*   Updated: 2025/02/11 16:53:32 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/02/11 21:43:59 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-char	*fill_map(char *filename)
+char	*fill_map(char *filame)
 {
-	char **map;
-	int fd;
+	char	**map;
+	int		fd;
 
 	map = NULL;
 	fd = NULL;
-	if (!filename)
+	if (!filame)
 		return ;
-	fd = open(filename, O_RDONLY);
+	fd = open(filame, O_RDONLY);
 	while (get_next_line(fd) != '\0')
 		map = get_next_line(fd);
 	return (map);
 }
 
-void	map_check_len(char **map)
+int	map_check_rect(char **map)
 {
-	
-}
+	int	h;
+	int	l;
+	int	max_lgth;
 
-void	check_walls(char **map)
-{
-	int	height;
-	int	length;
-	int max_height;
-	int max_length;
-
-	height = 0;
-	length = 0;
-	max_height = 0;
-	max_length = 0;
-	while (map[1][max_length])
-		max_length++;
-	while (map[max_height][0])
-		max_height++;
-	while (length < max_length || height < max_height)
+	h = 0;
+	max_lgth = 0;
+	while (map[0][max_lgth])
+		max_lgth++;
+	while (map[h])
 	{
-		if (length < max_length && (map[0][length] != '0' \
-					|| map[max_height - 1][length] != '0'))
-			perror("Map is invalid.");
-		if (height < max_height && (map[height][0] != '0' \
-					|| map[height][max_length - 1] != '0'))
-			perror("Map is invalid.");
-		length += (length < max_length);
-		height += (height < max_height);
+		l = 0;
+		while (map[h][l])
+			l++;
+		if (l != max_lgth)
+		{
+			perror("Map should be rectangular or square.");
+			return (0);
+		}
+		h++;
 	}
+	return (1);
 }
 
-void	content_check(char *filename)
+int	check_walls(char **map)
 {
-	char **map;
+	int	h;
+	int	l;
+	int	max_h;
+	int	max_l;
 
-	map = fill_map(filename);
-	check_walls(map);
-	
+	if (!map || !map[0])
+		return (perror("Invalid map."), 0);
+	h = 0;
+	l = 0;
+	max_h = 0;
+	max_l = 0;
+	while (map[0][max_l])
+		max_l++;
+	while (map[max_h])
+		max_h++;
+	while (l < max_l && map[0][l] == '1' && map[max_h - 1][l] == '1')
+		l++;
+	if (l < max_l)
+		return (perror("Map walls are invalid."), 0);
+	while (h < max_h && map[h][0] == '1' && map[h][max_h - 1] == '1')
+		h++;
+	if (h < max_h)
+		return (perror("Map walls are invalid."), 0);
+	return (1);
+}
+
+int	map_check_valid(char **map)
+{
+	int	h;
+	int	l;
+	int	max_h;
+	int	max_lgth;
+
+	h = 0;
+	l = 0;
+	max_h = 0;
+	max_lgth = 0;
+	while (map[0][max_lgth])
+		max_lgth++;
+	while (map[max_h][0])
+		max_h++;
+	while (l < max_lgth || h < max_h)
+	{
+		if (map[h][l] != '0' || map[h][l] != '1' \
+			|| map[h][l] != 'C' || map[h][l] != 'E' || map[h][l] != 'P')
+		{
+			perror("Map can't be played (There should only be 0, 1, C, E, P.)");
+			return (0);
+		}
+		l += (l < max_lgth);
+		h += (h < max_h);
+	}
+	return (1);
+}
+
+void	content_check(char *filame)
+{
+	char	**map;
+
+	map = fill_map(filame);
+	if (!map)
+	{
+		perror("Failed to load the map");
+		return ;
+	}
+	if (!map_check_rect(map))
+		return ;
+	if (!check_walls(map))
+		return ;
+	if (!map_check_valid(map))
+		return ;
 }
