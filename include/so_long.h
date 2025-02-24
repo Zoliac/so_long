@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:08:51 by lpatin            #+#    #+#             */
-/*   Updated: 2025/02/08 21:09:27 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/02/21 12:49:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@
 #include "../src/libft/includes/libft.h"
 #include "../src/minilibx-linux/mlx.h"
 
-typedef struct s_game
-{
-	
-}				t_game;
+typedef struct s_game {
+	char	**map;
+	bool	**visited;
+	int		map_height;
+	int		map_width;
+	int		collectibles;
+	int		exit_x;
+	int		exit_y;
+	int		player_x;
+	int		player_y;
+}			t_game;
 
 #endif
