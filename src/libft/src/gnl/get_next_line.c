@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:41:20 by lpatin            #+#    #+#             */
-/*   Updated: 2025/02/04 15:27:10 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/04 19:37:39 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*read_fd(int fd, char *stash)
 	{
 		bytes = read(fd, buff, BUFFER_SIZE);
 		if (bytes == -1 || !buff)
-		{
+		{size_t		ft_strlen(const char *s);
 			free(buff);
 			free(stash);
 			return (NULL);

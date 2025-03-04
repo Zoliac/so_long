@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:11:57 by lpatin            #+#    #+#             */
-/*   Updated: 2025/02/08 23:40:29 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/04 20:32:18 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ void	check_filename(char *filename)
 	{
 		if (ft_isspace(filename[i]))
 			perror("File name should not have spaces.");
-		if (!ft_isalnum(filename[i]) && !ft_isprint(filename))
+		if (!ft_isalnum(filename[i]) && !ft_isprint(filename[i]))
 			perror("Wrong file name, non printable characters found.");
+		i++;
 	}
 }
 
 void	check_mapname(char *filename)
 {
-	int	i;
-	char *extension;
-	char *mapext;
-	int	extlen;
-	int	filelen;
+	int		i;
+	char	*extension;
+	int		extlen;
+	int		filelen;
 
 	extension = ".ber";
 	extlen = 3;
