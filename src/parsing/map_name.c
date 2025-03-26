@@ -6,13 +6,13 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:11:57 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/04 20:32:18 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/26 18:01:38 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-void	check_filename(char *filename)
+int	check_filename(char *filename)
 {
 	int	i;
 
@@ -20,30 +20,28 @@ void	check_filename(char *filename)
 	while (filename[i])
 	{
 		if (ft_isspace(filename[i]))
-			perror("File name should not have spaces.");
+		{
+			ft_printf("%s", "File name should not have spaces.");
+			return (0);
+		}
 		if (!ft_isalnum(filename[i]) && !ft_isprint(filename[i]))
-			perror("Wrong file name, non printable characters found.");
+		{
+			ft_printf("%s", "Wrong file name, non printable characters found.");
+			return (0);
+		}
 		i++;
 	}
+	return (1);
 }
 
-void	check_mapname(char *filename)
+int	check_mapname(char *filename)
 {
-	int		i;
-	char	*extension;
-	int		extlen;
-	int		filelen;
+	int	filelen;
 
-	extension = ".ber";
-	extlen = 3;
-	i = 0;
-	filelen = 0;
 	if (!filename)
-		return ;
-	if (filelen < extlen)
-		return ;
-	while (filename[filelen])
-		filelen++;
-	if (ft_strncmp(filename + filelen - extlen, extension, extlen) == 0)
-		perror("Wrong file extension, file should be on .ber format.");
+		return (perror("Usage : ./so_long 'map name'"), 0);
+	filelen = ft_strlen(filename);
+	if (filelen < 4 || ft_strncmp(filename + filelen - 4, ".ber", 4) != 0)
+		return (ft_printf("%s", "Invalid extension, .ber map required."), 0);
+	return (1);
 }

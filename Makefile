@@ -6,14 +6,17 @@ SRCDIR = src
 OBJDIR = obj
 LIBFTDIR = src/libft
 
-MLX_CFLAGS = -I./src/minilibx-linux
-MLX_LDFLAGS = -L./src/minilibx-linux -lmlx -lX11 -lXext -lm
-LIBXDIR = src/minilibx-linux
+MLX_CFLAGS = -I minilibx-linux
+MLX_LDFLAGS = -L minilibx-linux -lmlx -lX11 -lXext -lm
+LIBXDIR = minilibx-linux
 
 SRCS = parsing/check_map_doable parsing/checker parsing/map_content \
-		parsing/map_name parsing/struct_init \
-		SL_utils/map_utils SL_utils/maxes SL_utils/utils \
-		mlx_related/mlx_free mlx_related/mlx_init \
+		parsing/map_name parsing/struct_init parsing/free_struct \
+		parsing/handle_collectibles \
+		SL_utils/map_utils SL_utils/maxes SL_utils/mem_related\
+		render/mlx_init render/load_all\
+		render/textures_load render/render algo/handle_all \
+		algo/movement algo/steps\
 		main
 
 SOURCES  = $(addprefix $(SRCDIR)/, $(addsuffix .c, $(SRCS)))

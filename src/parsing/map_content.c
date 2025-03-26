@@ -6,54 +6,72 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:27:24 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/04 18:28:43 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/26 18:30:09 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
+void	fill_mapbis(char ***map, int *i, int fd)
+{
+	char	*lines;
+	size_t	len;
+	int		loop;
+
+	lines = NULL;
+	len = 0;
+	loop = 1;
+	while (loop)
+	{
+		lines = get_next_line(fd);
+		if (lines == NULL)
+			break ;
+		len = ft_strlen(lines);
+		if (len > 0 && (lines[len - 1] == '\n' || lines[len - 1] == '\r'))
+			lines[len - 1] = '\0';
+		if (len == 0)
+		{
+			free(lines);
+			continue ;
+		}
+		*map = add_line_map(*map, i, lines);
+	}
+}
+
 char	**fill_map(char *filename, t_game *game)
 {
 	int		fd;
-	char	*lines;
 	char	**map;
 	int		i;
-	
+
+	map = NULL;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
+		return (perror("Error\nProgram could not open the file. "), NULL);
 	i = 0;
 	map = NULL;
-	while (1)
-	{
-		lines = get_next_line(fd);
-		if (lines)
-			break ;
-		lines[ft_strlen(lines) - 1] = '\0';
-		map = add_line_map(map, &i, lines);
-	}
+	fill_mapbis(&map, &i, fd);
 	close(fd);
+	if (i == 0)
+		return (ft_printf("%s", "Error\nEmpty map.\n"), NULL);
 	map = realloc_map(map, i + 1);
 	game->map = map;
+	close(fd);
+	free_gnl_buffer(fd);
 	return (game->map);
 }
 
 int	map_check_rect(t_game *game)
 {
 	int	h;
-	int	l;
 
+	if (!game->map || !game->map[0])
+		return (ft_printf("%s", "Empty Map.\n"), 0);
 	h = 0;
 	while (game->map[h])
 	{
-		l = 0;
-		while (game->map[h][l])
-			l++;
-		if (l != game->map_width)
-		{
-			perror("Map should be rectangular or square.");
-			return (0);
-		}
+		if ((int)ft_strlen(game->map[h]) != game->map_width)
+			return (ft_printf("%s", "Map should be rectngular.\n"), 0);
 		h++;
 	}
 	return (1);
@@ -65,17 +83,21 @@ int	check_walls(t_game *game)
 	int	l;
 
 	if (!game->map || !game->map[0])
-		return (perror("Invalid map."), 0);
-	h = 0;
+		return (ft_printf("%s", "Invalid map.\n"), 0);
 	l = 0;
-	while (l < game->map_width && game->map[0][l] == '1' && game->map[game->map_height - 1][l] == '1')
+	while (l < game->map_width)
+	{
+		if (game->map[0][l] != '1' || game->map[game->map_height - 1][l] != '1')
+			return (ft_printf("%s", "Horizontal wall invalid."), 0);
 		l++;
-	if (l < game->map_width)
-		return (perror("Map walls are invalid."), 0);
-	while (h < game->map_height && game->map[h][0] == '1' && game->map[h][game->map_height - 1] == '1')
+	}
+	h = 0;
+	while (h < game->map_height)
+	{
+		if (game->map[h][0] != '1' || game->map[h][game->map_width - 1] != '1')
+			return (ft_printf("%s", "Vertical wall invalid."), 0);
 		h++;
-	if (h < game->map_height)
-		return (perror("Map walls are invalid."), 0);
+	}
 	return (1);
 }
 
@@ -83,29 +105,16 @@ int	map_check_valid(t_game *game)
 {
 	int	h;
 	int	l;
-	
-	h = 0;
-	l = 0;
-	while (l < game->map_width || h < game->map_height)
+
+	h = -1;
+	while (++h < game->map_height)
 	{
-		if (game->map[h][l] != '0' || game->map[h][l] != '1' \
-			|| game->map[h][l] != 'C' || game->map[h][l] != 'E' || game->map[h][l] != 'P')
+		l = -1;
+		while (++l < game->map_width)
 		{
-			perror("Map can't be played (There should only be 0, 1, C, E, P.)");
-			return (0);
+			if (!ft_strchr("01CEP", game->map[h][l]))
+				return (ft_printf("%s", "Invalid character in the map."), 0);
 		}
-		l += (l < game->map_width );
-		h += (h < game->map_height);
 	}
 	return (1);
-}
-
-void	content_check(t_game *game)
-{
-	if (!map_check_rect(game))
-		return ;
-	if (!check_walls(game))
-		return ;
-	if (!map_check_valid(game))
-		return ;
 }

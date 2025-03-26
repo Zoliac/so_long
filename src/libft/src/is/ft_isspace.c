@@ -6,11 +6,11 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 02:33:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/04 14:11:59 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/07 20:23:09 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../../includes/libft.h"
 
 int	ft_isspace(int c)
 {

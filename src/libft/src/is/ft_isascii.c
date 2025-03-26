@@ -6,11 +6,11 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:37:51 by lpatin            #+#    #+#             */
-/*   Updated: 2024/10/15 17:23:21 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/07 20:21:47 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../../includes/libft.h"
 
 int	ft_isascii(int c)
 {

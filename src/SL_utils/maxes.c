@@ -14,26 +14,38 @@
 
 void	max_height(t_game *game)
 {
-	int	max_h;
-	
-	max_h = 0;
+	int	h;
+
+	h = 0;
 	if (game->map)
 	{
-		while (game->map[max_h])
-			max_h++;
+		while (game->map[h])
+			h++;
 	}
-	game->map_height = max_h;
+	game->map_height = h;
 }
 
 void	max_width(t_game *game)
 {
+	int	h;
 	int	max_l;
-	
+
+	h = 0;
 	max_l = 0;
-	if (game->map && game->map[0])
+	if (!game->map || !game->map[0])
+		exit (1);
+	while (game->map[h])
 	{
-		while (game->map[0][max_l])
-			max_l++;
+		if ((int)ft_strlen(game->map[h]) > max_l)
+			max_l = ft_strlen(game->map[h]);
+		h++;
+	}
+	h = 0;
+	while (game->map[h])
+	{
+		if ((int)ft_strlen(game->map[h]) != max_l)
+			exit (1);
+		h++;
 	}
 	game->map_width = max_l;
 }

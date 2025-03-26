@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   load_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 15:43:07 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/07 20:21:45 by lpatin           ###   ########.fr       */
+/*   Created: 2025/03/11 00:10:33 by lpatin            #+#    #+#             */
+/*   Updated: 2025/03/25 22:23:58 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../include/so_long.h"
 
-int	ft_isalpha(int c)
+void	init_all(t_game *game)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1);
-	else
-		return (0);
+	init_mlx(game);
+	texture_load(game);
+	render_map(game);
+	handle_input(game);
+	mlx_loop(game->mlx);
 }

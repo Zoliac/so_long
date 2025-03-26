@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:41:20 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/04 19:37:39 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/25 23:12:18 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ static char	*ft_extract_line(char *stash)
 	return (line);
 }
 
+void	free_gnl_buffer(int fd)
+{
+	static char	*buffer[1024];
+
+	if (fd >= 0 && fd < 1024 && buffer[fd])
+	{
+		free(buffer[fd]);
+		buffer[fd] = NULL;
+	}
+}
+
 static char	*read_fd(int fd, char *stash)
 {
 	char	*buff;
@@ -52,8 +63,8 @@ static char	*read_fd(int fd, char *stash)
 	while (!ft_strchr(stash, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buff, BUFFER_SIZE);
-		if (bytes == -1 || !buff)
-		{size_t		ft_strlen(const char *s);
+		if (bytes == -1)
+		{
 			free(buff);
 			free(stash);
 			return (NULL);
@@ -101,11 +112,7 @@ char	*get_next_line(int fd)
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		if (stash)
-			free(stash);
 		return (NULL);
-	}
 	stash = read_fd(fd, stash);
 	if (!stash)
 		return (NULL);

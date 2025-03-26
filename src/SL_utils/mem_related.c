@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   mem_related.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 15:43:07 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/07 20:21:45 by lpatin           ###   ########.fr       */
+/*   Created: 2025/03/10 22:39:44 by lpatin            #+#    #+#             */
+/*   Updated: 2025/03/26 22:06:59 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../include/so_long.h"
 
-int	ft_isalpha(int c)
+void	exit_error(char *msg, t_game *game)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1);
-	else
-		return (0);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
+	handle_close(game, EXIT_FAILURE);
 }

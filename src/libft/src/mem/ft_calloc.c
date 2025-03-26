@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:42:44 by lpatin            #+#    #+#             */
-/*   Updated: 2024/12/06 18:42:42 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/26 18:41:16 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	char	*ptr;
 
+	if (nmemb != 0 && size > SIZE_MAX / nmemb)
+		return (NULL);
 	ptr = malloc(nmemb * size);
 	if (!ptr)
 		return (NULL);
-	ft_memset(ptr, 0, nmemb * size);
+	memset(ptr, 0, nmemb * size);
 	return (ptr);
 }
-
 /*
 #include <stdio.h>
 int main(void)
@@ -40,4 +41,5 @@ int main(void)
 	printf("%p",tab);
 	free(tab);
 	return (0);
-}*/
+}
+*/

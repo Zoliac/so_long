@@ -6,11 +6,11 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:03:52 by lpatin            #+#    #+#             */
-/*   Updated: 2024/10/21 14:08:44 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/07 20:21:56 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../../includes/libft.h"
 
 int	ft_isprint(int c)
 {

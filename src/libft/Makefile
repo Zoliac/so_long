@@ -8,7 +8,7 @@ FT= is/ft_isalnum is/ft_isalpha is/ft_isascii is/ft_isdigit is/ft_isprint is/ft_
       str/ft_substr \
       ft_tolower \
       ft_toupper \
-      gnl/get_next_line gnl/get_next_line_utils gnl/get_next_line_bonus gnl/get_next_line_utils_bonus \
+      gnl/get_next_line \
       printf/advutils printf/mainft printf/utils printf/formats \
 
 SOURCES = $(addprefix src/, $(addsuffix , $(FT)))

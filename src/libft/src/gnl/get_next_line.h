@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:40:32 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/04 19:43:24 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/25 22:31:30 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 # endif
 
 char		*get_next_line(int fd);
-char		*ft_strchr(const char *s, int c);
-char		*gnl_strjoin(char *s1, char *s2);
 char		*ft_clean_stash(char *stash);
+void		free_gnl_buffer(int fd);
 
 #endif
