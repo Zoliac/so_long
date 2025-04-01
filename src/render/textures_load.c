@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 00:11:44 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/26 19:02:06 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/26 22:19:07 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int	texture_load(t_game *game)
 			&game->img_size, &game->img_size);
 	if (!game->img_player)
 		return (ft_printf("%s\n", "Couldn't load player texture (filename)."));
-	return (ft_printf("%s\n", "Textures succesfully loaded."));
+	return (1);
 }

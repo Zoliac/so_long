@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 20:46:39 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/26 21:26:14 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/26 22:14:09 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_mlx(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
-		ft_putendl_fd("No display found.", 2);
+		ft_putendl_fd("Error\nNo display found.", 2);
 		handle_close(game, 2);
 	}
 	game->img_size = 32;

@@ -44,7 +44,10 @@ void	max_width(t_game *game)
 	while (game->map[h])
 	{
 		if ((int)ft_strlen(game->map[h]) != max_l)
-			exit (1);
+		{
+			exit_error("Error\nMap isn't rectangular.\n", game);
+			handle_close(game, 2);
+		}
 		h++;
 	}
 	game->map_width = max_l;

@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:48:49 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/26 22:04:26 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/27 17:01:26 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ static int	enqueue(t_queue *q, int x, int y)
 
 	new_node = malloc(sizeof(t_queue_node));
 	if (!new_node)
-	{
-		ft_printf("%s", "Couldn't create a new node \
-						for the floodfill algorithm.");
 		return (1);
-	}
 	new_node->y = y;
 	new_node->x = x;
 	new_node->next = NULL;
@@ -50,12 +46,11 @@ static t_queue_node	*dequeue(t_queue *q)
 int	exit_condition(int exit_count)
 {
 	if (exit_count != 1)
-		return (ft_putendl_fd("Error\nMap not playable, no exit found or multiple exits found\n", 2), 0);
+		return (ft_putendl_fd("Error\nMap null no exit found\n", 2), 0);
 	return (1);
 }
 
-
-static void	process_directions(t_game *g, int px, int py, t_queue *q, int *ec)
+static void	process_directions(t_game *g, int px, int py, t_queue *q)
 {
 	int	direction_index;
 	int	nx;
@@ -76,7 +71,7 @@ static void	process_directions(t_game *g, int px, int py, t_queue *q, int *ec)
 			g->visited[ny][nx] = 1;
 			enqueue(q, nx, ny);
 			if (g->map[ny][nx] == 'E')
-				(*ec)++;
+				g->exit_count++;
 			if (g->map[ny][nx] == 'C')
 				g->collectibles_count--;
 		}
@@ -87,9 +82,7 @@ void	flood_fill(t_game *game)
 {
 	t_queue			*q;
 	t_queue_node	*current;
-	int				exit_count;
 
-	exit_count = 0;
 	game->collectibles_count = count_collectibles(game);
 	q = (t_queue *)malloc(sizeof(t_queue));
 	if (!q)
@@ -101,12 +94,12 @@ void	flood_fill(t_game *game)
 	while (q->head)
 	{
 		current = dequeue(q);
-		process_directions(game, current->x, current->y, q, &exit_count);
+		process_directions(game, current->x, current->y, q);
 		free(current);
 	}
-	if (!exit_count)
-		exit_error("No valid path to exit", game);
+	if (!game->exit_count)
+		(free(q), exit_error("Error\nNo path to exit", game));
 	if (game->collectibles_count > 0)
-		exit_error("Unreachable collectibles", game);
+		(free(q), exit_error("Error\nUnreachable collectibles", game));
 	free(q);
 }

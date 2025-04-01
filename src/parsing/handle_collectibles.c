@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 21:28:53 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/26 22:01:21 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/27 16:23:29 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	collectible_found(t_game *game)
 {
 	if (game->collectibles_count == 0)
 		return (0);
-	return (ft_putendl_fd("Error\nMap not playable, no collectible found\n", 
+	return (ft_putendl_fd("Error\nMap not playable, no collectible found\n",
 			2), 1);
 }
 

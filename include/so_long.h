@@ -6,7 +6,7 @@
 /*   By: lpatin <lpatin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:08:51 by lpatin            #+#    #+#             */
-/*   Updated: 2025/03/26 22:05:58 by lpatin           ###   ########.fr       */
+/*   Updated: 2025/03/27 16:21:12 by lpatin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_game
 	void	*img_collect;
 	void	*img_exit;
 	int		steps_count;
+	int		exit_count;
 }			t_game;
 
 typedef struct s_queue_node
@@ -88,14 +89,12 @@ char				**add_line_map(char **map, int *i, char *line);
 char				**realloc_map(char **map, int size);
 void				max_height(t_game *game);
 void				max_width(t_game *game);
-void				free_game(t_game *game);
 
 //MLX
 
 void				init_all(t_game *game);
 void				init_mlx(t_game *game);
 int					texture_load(t_game *game);
-void				mlx_free_all(t_game *game);
 void				redraw_tile(t_game *game, int x, int y);
 void				init_player_position(t_game *game);
 void				render_map(t_game *game);
